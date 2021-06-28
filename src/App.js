@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import Profile from "./Profile";
+import Board from "./Board";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import { Route } from "react-router-dom";
+
+const App = () => {
+    return (
+        <>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="/">홈</a>
+                    </li>
+                    <li>
+                        <a href="profile">프로필</a>
+                    </li>
+                    <li>
+                        <a href="board">게시판</a>
+                    </li>
+                </ul>
+            </nav>
+            <Route path="/profile" component={Profile} />
+            <Route path="/board" component={Board} />
+            <h1>Hello React</h1>
+        </>
+    );
+};
 
 export default App;
