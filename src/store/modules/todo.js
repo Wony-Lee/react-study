@@ -29,7 +29,7 @@ const initState = {
 
 export default function todo(state = initState, action) {
     switch (action.type) {
-        case CREATE:
+        case CREATE_TODO:
             return {
                 ...state,
                 list: state.list.concat({
@@ -42,7 +42,7 @@ export default function todo(state = initState, action) {
             return {
                 ...state,
                 list: state.list.map((v) => {
-                    return v.id === action.id ? { ...v, done: true } : item;
+                    return v.id === action.id ? { ...v, done: true } : v;
                 }),
             };
         default:
