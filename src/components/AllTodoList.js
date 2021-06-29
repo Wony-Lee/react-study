@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { create, done } from "../store/modules/todo";
 
@@ -7,39 +7,64 @@ const AllTodoList = () => {
     const list = useSelector((state) => state.todo.list).filter(
         (item) => !item.done
     );
-    const inputValue = useRef();
+    let count = 2;
+    // const todoDone = useSelector((state) => state.todo.list).filter(
+    //     (item) => !item.done
+    // );
+    // const id = useSelector((state) => state.todo.list).length;
+    const [text, setText] = useState("");
+    const [openToggle, setOpenToggle] = useState(false);
+    const toggleHandler = useCallback(() => {
+        setOpenToggle((prev) => !prev);
+        dispatch({});
+    });
+    const onChangeValue = useCallback((e) => {
+        setText(e.target.value);
+        console.log(e.target.value);
+    }, []);
 
-    const onChangeText = () => {
+    const onClickAddItem = useCallback(() => {
         dispatch(
             create({
-                id: list.length,
-                text: inputValue.current.value,
+                id: count++,
+                text: text,
             })
         );
-        console.log(list.length);
-        console.log(inputValue.current.value);
-    };
-    const onSuccess = () => {
+        console.log(count);
+    }, [count]);
+
+    // const inputValue = useRef();
+    // const onChangeText = () => {
+    //     dispatch(
+    //         create({
+    //             id: list.length,
+    //             text: text,
+    //         })
+    //     );
+    //     console.log(list.length);
+    //     console.log(inputValue.current.value);
+    // };
+    const onSuccess = useCallback((e) => {
         dispatch(
             done({
-                id: list.length[-1],
+                id: e.currentTarget,
                 done: true,
             })
         );
-        console.log(list.length);
-    };
+        console.log(count);
+    }, []);
     return (
         <section>
             <h1>Todo List</h1>
             <div>
-                <input type="text" ref={inputValue} />
-                <button onClick={onChangeText}>등록</button>
+                <input type="text" value={text} onChange={onChangeValue} />
+                <button onClick={onClickAddItem}>등록</button>
             </div>
             <ul>
                 {list.map((v) => (
                     <li key={v.id}>
                         {v.text}
-                        <button onClick={onSuccess}>완료</button>
+                        <input type="checkbox" onChange={toggleHandler} />
                     </li>
                 ))}
             </ul>

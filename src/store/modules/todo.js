@@ -1,18 +1,28 @@
 // 타입 지정
 const CREATE_TODO = "todo/CREATE";
 const DONE = "todo/DONE";
+const REMOVE = "todo/REMOVE";
 
-export function create(payload) {
+export function create({ id, text }) {
     return {
         type: CREATE_TODO,
-        payload,
+        payload: {
+            id,
+            text,
+        },
     };
 }
 
-export function done(key) {
+export function done({ id }) {
     return {
         type: DONE,
-        key,
+        id: id,
+    };
+}
+
+export function remove() {
+    return {
+        type: REMOVE,
     };
 }
 
@@ -47,8 +57,13 @@ export default function todo(state = initState, action) {
             return {
                 ...state,
                 list: state.list.map((v) => {
-                    return v.id === action.id ? { ...v, done: true } : v;
+                    return v.id === action.id ? { ...v, done: !v.done } : v;
                 }),
+            };
+        case REMOVE:
+            return {
+                ...state,
+                list: state.list.filter((v) => v.id !== action.id),
             };
         default:
             return state;
