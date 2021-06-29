@@ -1,6 +1,6 @@
 import Profile from "./Profile";
 import Board from "./Board";
-
+import ListContainer from "./components/ListContainer";
 import { Route } from "react-router-dom";
 
 const App = () => {
@@ -17,11 +17,14 @@ const App = () => {
                     <li>
                         <a href="board">게시판</a>
                     </li>
+                    <li>
+                        <a href="todo">할 일</a>
+                    </li>
                 </ul>
             </nav>
             <Route path="/profile" component={Profile} />
             <Route path="/board" component={Board} />
-            <h1>Hello React</h1>
+            <Route path="/todo" component={ListContainer} />
         </>
     );
 };

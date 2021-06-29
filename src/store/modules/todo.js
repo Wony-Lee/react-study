@@ -24,6 +24,11 @@ const initState = {
             text: "코딩 하기",
             done: true,
         },
+        {
+            id: 1,
+            text: "숨 쉬기",
+            done: true,
+        },
     ],
 };
 
