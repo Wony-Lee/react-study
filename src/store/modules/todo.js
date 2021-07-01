@@ -13,7 +13,7 @@ export function create({ id, text }) {
     };
 }
 
-export function done({ id }) {
+export function done(id) {
     return {
         type: DONE,
         id: id,
