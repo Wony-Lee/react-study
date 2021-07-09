@@ -1,11 +1,15 @@
 import AllTodoList from "./AllTodoList";
 import DoneList from "./DoneList";
 
+import { Container } from "../style/styled";
+
 const ListContainer = () => {
     return (
         <>
-            <AllTodoList />
-            <DoneList />
+            <Container>
+                <AllTodoList />
+                <DoneList />
+            </Container>
         </>
     );
 };
